@@ -13,4 +13,4 @@ async function findByEmail(email) {
   return await db.query(`SELECT * FROM users WHERE email = $1`, [email]);
 }
 
-export default (create, findByEmail);
+export default { create, findByEmail };

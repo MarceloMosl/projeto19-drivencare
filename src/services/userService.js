@@ -2,8 +2,8 @@ import bcrypt from "bcrypt";
 import userRepo from "../repositories/userRepo.js";
 
 async function create({ username, email, password }) {
-  const { rowsCount } = await userRepo.findByEmail(email);
-  if (rowsCount) return "Vai da não, to mó cansado";
+  const { rowCount } = await userRepo.findByEmail(email);
+  if (rowCount) throw new Error("email invalido");
 
   const hashPassword = await bcrypt.hash(password, 10);
 

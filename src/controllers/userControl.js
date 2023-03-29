@@ -12,4 +12,4 @@ export async function create(req, res) {
   }
 }
 
-export default create;
+export default { create };

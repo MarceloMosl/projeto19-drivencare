@@ -6,3 +6,5 @@ import userControl from "../controllers/userControl.js";
 const userRouter = Router();
 
 userRouter.post("/sign-up", validateSchema(userSchemma), userControl.create);
+
+export default userRouter;
