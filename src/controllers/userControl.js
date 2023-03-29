@@ -11,3 +11,5 @@ export async function create(req, res) {
     return res.status(500).send(error.message);
   }
 }
+
+export default create;
