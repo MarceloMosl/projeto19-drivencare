@@ -1,34 +1,36 @@
 import bcrypt from "bcrypt";
-import userRepo from "../repositories/userRepo.js";
+import doctorRepo from "../repositories/doctorRepo.js";
 import { v4 as uuidV4 } from "uuid";
 
-async function create({ name, email, password }) {
-  const { rowCount } = await userRepo.findByEmail(email);
+async function create({ name, email, password, specialty }) {
+  const { rowCount, rows } = await doctorRepo.findByEmail(email);
+  console.log(rows);
   if (rowCount) throw new Error("invalid email");
 
   const hashPassword = await bcrypt.hash(password, 10);
 
-  return await userRepo.create({
+  return await doctorRepo.create({
     name,
     email,
     password: hashPassword,
+    specialty,
   });
 }
 
 async function sessionsCreate({ email, password }) {
   const {
     rowCount,
-    rows: [user],
-  } = await userRepo.findByEmail(email);
+    rows: [doc],
+  } = await doctorRepo.findByEmail(email);
   if (!rowCount) throw new Error("invalid email or password ");
 
-  const validatePassword = await bcrypt.compare(password, user.password);
+  const validatePassword = await bcrypt.compare(password, doc.password);
   if (!validatePassword) throw new Error("invalid email or password");
 
   const token = uuidV4();
 
-  await userRepo.createSession({
-    patientId: user.id,
+  await doctorRepo.sessionsCreate({
+    doctorId: doc.id,
     token,
   });
 
