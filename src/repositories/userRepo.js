@@ -27,7 +27,7 @@ async function createSession({ token, patientId }) {
 }
 
 async function findByToken(token) {
-  return await connectionDb.query(
+  return await db.query(
     `
         SELECT * FROM sessions WHERE token = $1
     `,

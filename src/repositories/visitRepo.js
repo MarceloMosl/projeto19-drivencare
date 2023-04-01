@@ -1,31 +1,24 @@
-import { db } from "../config/database";
+import dayjs from "dayjs";
+import { db } from "../config/database.js";
 
-async function create({ patient, date, doctor }) {
-  try {
-    await db.query(
-      `
-        INSERT INTO visits (patient, date, doctor)
-        VALUES ($1,$2,$3)
+async function create({ time, date, doctorId, patientId }) {
+  return await db.query(
+    `
+        INSERT INTO visits (time, date, doctor_id, patient_id)
+        VALUES ($1, $2, $3, $4)
         `,
-      [patient, date, doctor]
-    );
-  } catch (error) {
-    return res.send(error);
-  }
+    [time, date, doctorId, patientId]
+  );
 }
 
-async function checkDate({ date, doctor }) {
-  try {
-    return await db.query(
-      `
+async function checkDate({ time, date, doctorId }) {
+  return await db.query(
+    `
         SELECT * FROM visits 
-        WHERE date = $1 AND doctor = $2
+        WHERE date = $1 AND doctor_id = $2 AND time = $3
     `,
-      [date, doctor]
-    );
-  } catch (error) {
-    return res.send(error);
-  }
+    [date, doctorId, time]
+  );
 }
 
 export default {

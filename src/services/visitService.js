@@ -1,14 +1,20 @@
-import visitRepo from "../repositories/visitRepo";
+import dayjs from "dayjs";
+import visitRepo from "../repositories/visitRepo.js";
 
-async function create({ patient, date, doctor }) {
-  const { rowCount } = visitRepo.checkDate({ date, doctor });
+async function create({ time, date, doctorId, patientId }) {
+  const { rowCount } = await visitRepo.checkDate({
+    time,
+    date: dayjs(date).format("DD/MM/YYYY"),
+    doctorId,
+  });
   if (rowCount) throw new Error("Data indisponivel");
 
-  try {
-    return await visitRepo.create({ patient, date, doctor });
-  } catch (error) {
-    return res.send(error);
-  }
+  return await visitRepo.create({
+    time,
+    date: dayjs(date).format("DD/MM/YYYY"),
+    doctorId,
+    patientId,
+  });
 }
 
 export default {
