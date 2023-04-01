@@ -26,12 +26,30 @@ async function createSession({ token, patientId }) {
   );
 }
 
-async function findByToken(token) {
+async function findByToken({ token }) {
   return await db.query(
     `
-        SELECT * FROM sessions WHERE token = $1
+        SELECT * FROM patients_sessions WHERE token = $1
     `,
     [token]
+  );
+}
+
+async function findSession({ id }) {
+  return await db.query(
+    `
+        SELECT * FROM patients_sessions WHERE patient_id = $1
+    `,
+    [id]
+  );
+}
+
+async function updateToken({ token, userId }) {
+  return await db.query(
+    `
+        UPDATE patients_sessions SET token = $1 WHERE patient_id = $2
+    `,
+    [token, userId]
   );
 }
 
@@ -41,4 +59,6 @@ export default {
   createSession,
   findById,
   findByToken,
+  updateToken,
+  findSession,
 };

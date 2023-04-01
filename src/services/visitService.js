@@ -17,6 +17,16 @@ async function create({ time, date, doctorId, patientId }) {
   });
 }
 
+async function findPatient({ patient_id }) {
+  return await visitRepo.findPatient({ patient_id });
+}
+
+async function findDoctor({ id }) {
+  return await visitRepo.findDoctor({ id });
+}
+
 export default {
   create,
+  findPatient,
+  findDoctor,
 };

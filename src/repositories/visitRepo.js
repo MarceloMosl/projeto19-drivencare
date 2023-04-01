@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { db } from "../config/database.js";
 
 async function create({ time, date, doctorId, patientId }) {
@@ -21,7 +20,28 @@ async function checkDate({ time, date, doctorId }) {
   );
 }
 
+async function findPatient({ patient_id }) {
+  console.log(patient_id);
+  return await db.query(
+    `
+    SELECT * FROM visits WHERE patient_id = $1
+  `,
+    [patient_id]
+  );
+}
+
+async function findDoctor({ id }) {
+  return await db.query(
+    `
+    SELECT * FROM visits WHERE doctor_id = $1
+  `,
+    [id]
+  );
+}
+
 export default {
   create,
   checkDate,
+  findPatient,
+  findDoctor,
 };

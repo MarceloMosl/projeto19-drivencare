@@ -5,7 +5,7 @@ import doctorRouter from "./doctorRoute.js";
 
 const router = Router();
 
-router.use("/users", userRouter);
+router.use("/patient", userRouter);
 router.use("/doctor", doctorRouter);
 router.use("/visit", visitRoute);
 

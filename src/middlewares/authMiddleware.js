@@ -9,17 +9,18 @@ async function authValidation(req, res, next) {
   try {
     const {
       rows: [session],
-    } = await userRepositories.findByToken(token);
+    } = await userRepositories.findByToken({ token });
     if (!session) throw new Error("token not found");
 
     const {
       rows: [user],
-    } = await userRepositories.findById(session.userId);
+    } = await userRepositories.findSession({ id: session.patient_id });
     if (!user) throw new Error("invalid Token");
-    res.locals.user = user;
+
+    res.locals.patient = user;
     next();
   } catch (err) {
-    return res.send(err);
+    return res.status(500).send(err.message);
   }
 }
 
