@@ -52,10 +52,22 @@ async function findVisits({ patient_id }) {
   );
 }
 
+async function findVisitsAsDoc({ doctor_id }) {
+  return await db.query(
+    `SELECT d.specialty as doctor_specialty, c.date, c.time, p.name as patient_name
+        FROM doctors d
+        JOIN visits c ON c.doctor_id = d.id
+        JOIN patients p ON c.patient_id = p.id
+      WHERE d.id = $1;`,
+    [doctor_id]
+  );
+}
+
 export default {
   create,
   checkDate,
   findPatient,
   findDoctor,
   findVisits,
+  findVisitsAsDoc,
 };

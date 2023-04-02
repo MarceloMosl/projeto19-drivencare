@@ -43,9 +43,21 @@ export async function findVisits(req, res) {
   }
 }
 
+export async function findVisitsAsDoc(req, res) {
+  const { doctor_id } = res.locals.doc;
+
+  try {
+    const { rows } = await visitService.findVisitsAsDoc({ doctor_id });
+    return res.send(rows);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
 export default {
   create,
   findPatient,
   findDoctor,
   findVisits,
+  findVisitsAsDoc,
 };

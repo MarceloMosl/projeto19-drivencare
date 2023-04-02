@@ -1,6 +1,6 @@
 import doctorRepo from "../repositories/doctorRepo.js";
 
-async function authValidation(req, res, next) {
+async function docValidate(req, res, next) {
   const { authorization } = req.headers;
   const token = authorization?.replace("Bearer ", "");
 
@@ -17,11 +17,11 @@ async function authValidation(req, res, next) {
     } = await doctorRepo.findSession({ id: session.doctor_id });
     if (!user) throw new Error("invalid Token");
 
-    res.locals.patient = user;
+    res.locals.doc = user;
     next();
   } catch (err) {
     return res.status(500).send(err.message);
   }
 }
 
-export default authValidation;
+export default docValidate;

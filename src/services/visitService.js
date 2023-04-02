@@ -29,9 +29,14 @@ async function findVisits({ patient_id }) {
   return await visitRepo.findVisits({ patient_id });
 }
 
+async function findVisitsAsDoc({ doctor_id }) {
+  return await visitRepo.findVisitsAsDoc({ doctor_id });
+}
+
 export default {
   create,
   findPatient,
   findDoctor,
   findVisits,
+  findVisitsAsDoc,
 };
