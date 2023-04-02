@@ -46,7 +46,12 @@ async function sessionsCreate({ email, password }) {
   return token;
 }
 
+async function changeStatus({ visitId, status }) {
+  return await doctorRepo.changeStatus({ visitId, status });
+}
+
 export default {
   create,
   sessionsCreate,
+  changeStatus,
 };

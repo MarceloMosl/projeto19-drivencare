@@ -53,6 +53,15 @@ async function updateToken({ token, docId }) {
   );
 }
 
+async function changeStatus({ visitId, status }) {
+  return await db.query(
+    `
+    UPDATE visits SET status = $1 WHERE id = $2
+  `,
+    [status, visitId]
+  );
+}
+
 export default {
   create,
   findByEmail,
@@ -61,4 +70,5 @@ export default {
   findByToken,
   findSession,
   updateToken,
+  changeStatus,
 };

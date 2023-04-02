@@ -20,6 +20,15 @@ async function checkDate({ time, date, doctorId }) {
   );
 }
 
+async function findVisitById({ id }) {
+  return await db.query(
+    `
+    SELECT * FROM visits WHERE id = $1
+  `,
+    [id]
+  );
+}
+
 async function findVisits({ patient_id }) {
   return await db.query(
     `
@@ -47,7 +56,7 @@ async function findVisitsAsDoc({ doctor_id }) {
 export default {
   create,
   checkDate,
-  findDoctor,
   findVisits,
   findVisitsAsDoc,
+  findVisitById,
 };

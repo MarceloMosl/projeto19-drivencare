@@ -35,7 +35,6 @@ export async function findVisitsAsDoc(req, res) {
 
 export default {
   create,
-  findDoctor,
   findVisits,
   findVisitsAsDoc,
 };

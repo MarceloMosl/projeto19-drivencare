@@ -24,4 +24,14 @@ export async function sessionsCreate(req, res) {
   }
 }
 
-export default { create, sessionsCreate };
+export async function changeStatus(req, res) {
+  const { visitId, status } = req.body;
+  try {
+    await doctorService.changeStatus({ visitId, status });
+    return res.sendStatus(200);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
+export default { create, sessionsCreate, changeStatus };
