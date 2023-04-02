@@ -53,6 +53,33 @@ async function updateToken({ token, userId }) {
   );
 }
 
+async function getDocByName({ name }) {
+  return await db.query(
+    `
+    SELECT * FROM doctors WHERE name LIKE $1
+  `,
+    [`%${name}%`]
+  );
+}
+
+async function getDocBySpec({ specialty }) {
+  return await db.query(
+    `
+    SELECT * FROM doctors WHERE specialty LIKE $1
+  `,
+    [`%${specialty}%`]
+  );
+}
+
+async function getDocByNameNSpec({ name, specialty }) {
+  return await db.query(
+    `
+    SELECT * FROM doctors WHERE name LIKE $1 AND specialty LIKE $2
+  `,
+    [`%${name}%`, `%${specialty}%`]
+  );
+}
+
 export default {
   create,
   findByEmail,
@@ -61,4 +88,7 @@ export default {
   findByToken,
   updateToken,
   findSession,
+  getDocByName,
+  getDocBySpec,
+  getDocByNameNSpec,
 };

@@ -12,4 +12,6 @@ visitRoute.get("/patient", authValidation, visitControl.findPatient);
 
 visitRoute.get("/doctor", authValidation, visitControl.findDoctor);
 
+visitRoute.get("/patient-visits", authValidation, visitControl.findVisits);
+
 export default visitRoute;

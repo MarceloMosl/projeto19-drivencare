@@ -44,7 +44,20 @@ async function sessionsCreate({ email, password }) {
   return token;
 }
 
+async function getDocs({ name, specialty }) {
+  if (!name && specialty) {
+    return await userRepo.getDocBySpec({ specialty });
+  } else if (name && !specialty) {
+    return await userRepo.getDocByName({ name });
+  } else if (name && specialty) {
+    return await userRepo.getDocByNameNSpec({ name, specialty });
+  } else {
+    throw new Error("Preencha os campos nome ou especialidade");
+  }
+}
+
 export default {
   create,
   sessionsCreate,
+  getDocs,
 };
