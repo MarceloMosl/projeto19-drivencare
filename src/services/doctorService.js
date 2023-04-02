@@ -29,6 +29,15 @@ async function sessionsCreate({ email, password }) {
 
   const token = uuidV4();
 
+  const {
+    rows: [docToken],
+  } = await doctorRepo.findSession({ id: doc.id });
+
+  if (docToken) {
+    await doctorRepo.updateToken({ token, docId: docToken.doctor_id });
+    return token;
+  }
+
   await doctorRepo.sessionsCreate({
     doctorId: doc.id,
     token,

@@ -8,8 +8,27 @@ async function create({ name, email, password, specialty }) {
     [name, email, password, specialty]
   );
 }
+
 async function findByEmail(email) {
   return await db.query(`SELECT * FROM doctors WHERE email = $1`, [email]);
+}
+
+async function findByToken({ token }) {
+  return await db.query(
+    `
+        SELECT * FROM doctors_sessions WHERE token = $1
+    `,
+    [token]
+  );
+}
+
+async function findSession({ id }) {
+  return await db.query(
+    `
+        SELECT * FROM doctors_sessions WHERE doctor_id = $1
+    `,
+    [id]
+  );
 }
 
 async function findById(id) {
@@ -25,9 +44,21 @@ async function sessionsCreate({ token, doctorId }) {
   );
 }
 
+async function updateToken({ token, docId }) {
+  return await db.query(
+    `
+        UPDATE doctors_sessions SET token = $1 WHERE doctor_id = $2
+    `,
+    [token, docId]
+  );
+}
+
 export default {
   create,
   findByEmail,
   findById,
   sessionsCreate,
+  findByToken,
+  findSession,
+  updateToken,
 };
