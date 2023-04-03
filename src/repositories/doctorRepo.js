@@ -62,6 +62,19 @@ async function changeStatus({ visitId, status }) {
   );
 }
 
+async function historyVisits({ doctor_id }) {
+  return db.query(
+    `
+    SELECT d.specialty as doctor_specialty, c.date, c.time, p.name as patient_name, c.status
+    FROM doctors d
+    JOIN visits c ON c.doctor_id = d.id
+    JOIN patients p ON c.patient_id = p.id
+    WHERE d.id = $1 AND c.status = 'concluida';
+  `,
+    [doctor_id]
+  );
+}
+
 export default {
   create,
   findByEmail,
@@ -71,4 +84,5 @@ export default {
   findSession,
   updateToken,
   changeStatus,
+  historyVisits,
 };

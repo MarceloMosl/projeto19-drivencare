@@ -14,5 +14,5 @@ export const sessionSchema = joi.object({
 
 export const changeStatusSchema = joi.object({
   visitId: joi.number().required(),
-  status: joi.string().valid("confirmada", "cancelada").required(),
+  status: joi.string().valid("confirmada", "cancelada", "concluida").required(),
 });

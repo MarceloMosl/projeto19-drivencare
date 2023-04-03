@@ -50,8 +50,13 @@ async function changeStatus({ visitId, status }) {
   return await doctorRepo.changeStatus({ visitId, status });
 }
 
+async function historyVisits({ doctor_id }) {
+  return await doctorRepo.historyVisits({ doctor_id });
+}
+
 export default {
   create,
   sessionsCreate,
   changeStatus,
+  historyVisits,
 };

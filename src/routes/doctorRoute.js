@@ -16,5 +16,6 @@ doctorRouter.put(
   statusAlterMiddleware,
   doctorControl.changeStatus
 );
+doctorRouter.get("/history", docValidate, doctorControl.historyVisits);
 
 export default doctorRouter;

@@ -34,4 +34,15 @@ export async function changeStatus(req, res) {
   }
 }
 
-export default { create, sessionsCreate, changeStatus };
+export async function historyVisits(req, res) {
+  const { doctor_id } = res.locals.doc;
+
+  try {
+    const { rows } = await doctorService.historyVisits({ doctor_id });
+    return res.send(rows);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
+export default { create, sessionsCreate, changeStatus, historyVisits };
