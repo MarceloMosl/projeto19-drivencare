@@ -1,9 +1,10 @@
 import visitService from "../services/visitService.js";
 
 export async function create(req, res) {
-  const { time, date, doctorId, patientId } = req.body;
+  const { time, date, doctorId } = req.body;
+  const { patient_id } = res.locals.patient;
   try {
-    await visitService.create({ time, date, doctorId, patientId });
+    await visitService.create({ time, date, doctorId, patientId: patient_id });
 
     return res.sendStatus(201);
   } catch (error) {

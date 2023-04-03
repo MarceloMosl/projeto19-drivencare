@@ -7,7 +7,12 @@ import docValidate from "../middlewares/docAuthMiddleware.js";
 
 const visitRoute = Router();
 
-visitRoute.post("/insert", validateSchema(visitSchema), visitControl.create);
+visitRoute.post(
+  "/insert",
+  authValidation,
+  validateSchema(visitSchema),
+  visitControl.create
+);
 
 visitRoute.get("/patient-visits", authValidation, visitControl.findVisits);
 

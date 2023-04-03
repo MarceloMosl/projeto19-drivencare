@@ -2,7 +2,7 @@ import joi from "joi";
 import dayjs from "dayjs";
 
 export const visitSchema = joi.object({
-  time: joi.number().integer().min(8).max(18),
+  time: joi.number().integer().min(8).max(18).required(),
   date: joi
     .date()
     .min("now")
@@ -16,5 +16,4 @@ export const visitSchema = joi.object({
     })
     .required(),
   doctorId: joi.number().required(),
-  patientId: joi.number().required(),
 });
