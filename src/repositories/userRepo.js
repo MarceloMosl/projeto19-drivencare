@@ -62,6 +62,15 @@ async function getDocByName({ name }) {
   );
 }
 
+async function getDocById({ doctorId }) {
+  return await db.query(
+    `
+    SELECT * FROM doctors WHERE id = $1
+  `,
+    [doctorId]
+  );
+}
+
 async function getDocBySpec({ specialty }) {
   return await db.query(
     `
@@ -93,6 +102,15 @@ async function historyVisits({ patient_id }) {
   );
 }
 
+async function getDoctorAvailability({ doctorId }) {
+  return await db.query(
+    `
+  SELECT visits.time, visits.date FROM visits WHERE doctor_id = $1;
+  `,
+    [doctorId]
+  );
+}
+
 export default {
   create,
   findByEmail,
@@ -105,4 +123,6 @@ export default {
   getDocBySpec,
   getDocByNameNSpec,
   historyVisits,
+  getDocById,
+  getDoctorAvailability,
 };

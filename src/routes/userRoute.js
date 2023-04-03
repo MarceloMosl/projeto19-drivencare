@@ -12,7 +12,14 @@ userRouter.post(
   validateSchema(sessionSchema),
   userControl.sessionsCreate
 );
+
 userRouter.post("/doctors-list", authValidation, userControl.getDocs);
+
+userRouter.get(
+  "/doctor-availability/:doc",
+  authValidation,
+  userControl.getDoctorAvailability
+);
 
 userRouter.get("/history", authValidation, userControl.historyVisits);
 

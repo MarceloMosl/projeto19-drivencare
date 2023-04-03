@@ -60,9 +60,20 @@ async function historyVisits({ patient_id }) {
   return await userRepo.historyVisits({ patient_id });
 }
 
+async function getDoctorAvailability({ doctorId }) {
+  const {
+    rows: [doctor],
+  } = await userRepo.getDocById({ doctorId });
+
+  if (!doctor) throw new Error("Doctor doesnt exists");
+
+  return await userRepo.getDoctorAvailability({ doctorId });
+}
+
 export default {
   create,
   sessionsCreate,
   getDocs,
   historyVisits,
+  getDoctorAvailability,
 };

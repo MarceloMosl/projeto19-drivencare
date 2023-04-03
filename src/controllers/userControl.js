@@ -46,4 +46,22 @@ export async function historyVisits(req, res) {
   }
 }
 
-export default { create, sessionsCreate, getDocs, historyVisits };
+export async function getDoctorAvailability(req, res) {
+  const { doc } = req.params;
+
+  try {
+    const { rows } = await userService.getDoctorAvailability({ doctorId: doc });
+
+    return res.send(rows);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+}
+
+export default {
+  create,
+  sessionsCreate,
+  getDocs,
+  historyVisits,
+  getDoctorAvailability,
+};
