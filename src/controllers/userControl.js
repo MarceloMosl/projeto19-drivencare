@@ -35,4 +35,15 @@ export async function getDocs(req, res) {
   }
 }
 
-export default { create, sessionsCreate, getDocs };
+export async function historyVisits(req, res) {
+  const { patient_id } = res.locals.patient;
+
+  try {
+    const { rows } = await userService.historyVisits({ patient_id });
+    res.send(rows);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
+export default { create, sessionsCreate, getDocs, historyVisits };

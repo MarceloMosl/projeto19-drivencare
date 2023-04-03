@@ -14,4 +14,6 @@ userRouter.post(
 );
 userRouter.post("/doctors-list", authValidation, userControl.getDocs);
 
+userRouter.get("/history", authValidation, userControl.historyVisits);
+
 export default userRouter;

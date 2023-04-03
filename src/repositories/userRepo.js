@@ -80,6 +80,19 @@ async function getDocByNameNSpec({ name, specialty }) {
   );
 }
 
+async function historyVisits({ patient_id }) {
+  return await db.query(
+    `
+    SELECT c.date, c.time, d.name as doctor_name, d.specialty as doctor_specialty, c.status
+  FROM visits c
+  JOIN doctors d ON c.doctor_id = d.id
+  WHERE c.patient_id = $1 AND c.status = 'concluida';
+
+  `,
+    [patient_id]
+  );
+}
+
 export default {
   create,
   findByEmail,
@@ -91,4 +104,5 @@ export default {
   getDocByName,
   getDocBySpec,
   getDocByNameNSpec,
+  historyVisits,
 };

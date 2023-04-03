@@ -56,8 +56,13 @@ async function getDocs({ name, specialty }) {
   }
 }
 
+async function historyVisits({ patient_id }) {
+  return await userRepo.historyVisits({ patient_id });
+}
+
 export default {
   create,
   sessionsCreate,
   getDocs,
+  historyVisits,
 };
